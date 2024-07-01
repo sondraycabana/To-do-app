@@ -1,3 +1,5 @@
+import 'package:accessment/app/modules/view/task_list_page.dart';
+import 'package:accessment/app/utils/app_strings/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:accessment/app/modules/provider/task_provider.dart'; // Import TaskFirestoreServiceProvider
@@ -41,8 +43,14 @@ class _TitlePageState extends State<TitlePage> {
       });
       try {
         await _firestoreService.addTask(_titleController.text, _items);
-        Navigator.pushNamed(context, Routes.taskListPage,
-            arguments: widget.user);
+        // Navigator.pushNamed(context, Routes.taskListPage,
+        //     arguments: widget.user);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TaskListPage( user:  widget.user,)),
+
+        );
       } catch (e) {
         _showErrorSnackBar('Error adding task: $e');
       } finally {
@@ -92,7 +100,7 @@ class _TitlePageState extends State<TitlePage> {
                 children: [
                   24.h,
                   const Text(
-                    'Title',
+                    AppStrings.titlePageText,
                     style: TextStyle(
                       fontSize: 24,
                       fontFamily: "Inter",

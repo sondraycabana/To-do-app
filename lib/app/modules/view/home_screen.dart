@@ -1,4 +1,6 @@
+import 'package:accessment/app/constants/asset_paths.dart';
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:accessment/app/utils/app_strings/app_strings.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 60),
             child: Center(
               child: Image.asset(
-                'assets/images/png/home-img.png',
+                AssetPath.homePage,
                 width: double.infinity,
                 height: 200,
               ),
@@ -26,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 70),
                 child: const Text(
-                  'Start your journey',
+                  AppStrings.homeScreenText1,
                   style: TextStyle(
                     fontSize: 24,
                     fontFamily: "Inter",
@@ -40,7 +42,7 @@ class HomeScreen extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 62.0),
                 child: const Text(
-                  "Every big step starts with a small step. Note your first idea and start your journey.",
+                 AppStrings.homeScreenText2,
                   style: TextStyle(
                     fontSize: 14,
                     fontFamily: "Inter",
@@ -55,7 +57,7 @@ class HomeScreen extends StatelessWidget {
           21.h,
           Center(
             child: Image.asset(
-              'assets/images/png/arrow.png',
+              AssetPath.homePageArrowImg,
               width: double.infinity,
               height: 170,
             ),

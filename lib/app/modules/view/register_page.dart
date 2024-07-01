@@ -9,6 +9,7 @@ import 'package:accessment/app/utils/common_widgets/or_divider_widget.dart';
 import 'package:accessment/app/utils/common_widgets/register_login_link_widget.dart';
 import 'package:accessment/app/constants/asset_paths.dart';
 import '../../config/routes/routes.dart';
+import '../../utils/app_strings/app_strings.dart';
 import '../provider/auth_provider.dart';
 import '../services/auth_service.dart';
 import 'login_page.dart';
@@ -111,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "Register",
+                                AppStrings.registerText1,
                                 style: TextStyle(
                                   fontFamily: "Inter",
                                   fontSize: 32,
@@ -121,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               16.h,
                               const Text(
-                                "And start taking note",
+                                AppStrings.registerText2,
                                 style: TextStyle(
                                   fontFamily: "Inter",
                                   fontSize: 16,

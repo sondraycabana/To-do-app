@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"My to-do list"</string>
+    <string name="facebook_app_id">1629622574246415</string>
+    <string name="fb_login_protocol_scheme">fb1629622574246415</string>
+    <string name="facebook_client_token">043ab4fb6c2adc2e05c73c1f33d1a7c5</string>
+</resources>
+
+

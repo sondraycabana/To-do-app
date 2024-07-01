@@ -34,7 +34,8 @@ class Routes {
       case home:
         return MaterialPageRoute(builder: (_) => HomePage(user: settings.arguments as User));
       case taskListPage:
-        return MaterialPageRoute(builder: (_) => TaskListPage(user: settings.arguments as dynamic));
+        return MaterialPageRoute(builder: (_) => TaskListPage( user: settings.arguments as User));
+
       case titlePage:
         return MaterialPageRoute(builder: (_) => const TitlePage(user:  User));
       case setting:

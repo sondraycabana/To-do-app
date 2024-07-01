@@ -2,7 +2,10 @@ import 'package:accessment/app/components/custom_button.dart';
 import 'package:accessment/app/constants/app_colors.dart';
 import 'package:accessment/app/modules/view/login_page.dart';
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:accessment/app/utils/app_strings/app_strings.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/asset_paths.dart';
 
 
 class OnboardingPage extends StatelessWidget {
@@ -20,13 +23,14 @@ class OnboardingPage extends StatelessWidget {
               children: [
                 128.h,
                 Image.asset(
-                  'assets/images/png/cover-img.png',
+
+                  AssetPath.onboardingImage,
                   height: 280,
                   width: 280,
                 ),
                 24.h,
                 const Text(
-                  'Jot down anything you want to achieve, today or in the future ',
+                  AppStrings.coverPageString,
                   style: TextStyle(
                     fontFamily: "Inter",
                     fontSize: 20,

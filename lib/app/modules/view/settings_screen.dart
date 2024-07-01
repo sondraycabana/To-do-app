@@ -1,8 +1,10 @@
+import 'package:accessment/app/constants/asset_paths.dart';
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
+import '../../utils/app_strings/app_strings.dart';
 import '../services/auth_service.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -142,7 +144,7 @@ class SettingsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
-                  'assets/images/png/mail.png',
+                 AssetPath.emailIcon,
                   height: 40,
                   width: 40,
                   color: AppColors.neutralDarkGreyColor,
@@ -173,13 +175,13 @@ class SettingsScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.asset(
-                          'assets/images/png/logout.png',
+                          AssetPath.logOutIcon,
                           height: 24,
                           width: 24,
                         ),
                         12.w,
                         const Text(
-                          'Log Out',
+                         AppStrings.logOutText,
                           style: TextStyle(
                             fontSize: 18,
                             color: Color(0xFFCE3A54),

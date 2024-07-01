@@ -215,8 +215,14 @@
 
 // main.dart
 
+
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:accessment/app/config/routes/routes.dart';
 import 'package:accessment/app/firebase_options.dart';
@@ -231,6 +237,16 @@ void main() async {
     name: "accessment",
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Initialize Facebook Auth
+  // await FacebookAuth.instance.webInitialize(
+      await FacebookAuth.instance.webAndDesktopInitialize(
+    appId: "YOUR_FACEBOOK_APP_ID",
+    cookie: true,
+    xfbml: true,
+    version: "v10.0",
+  );
+
 
   runApp(
     MultiProvider(
