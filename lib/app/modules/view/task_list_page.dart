@@ -26,8 +26,9 @@ class _TaskListPageState extends State<TaskListPage> {
   void initState() {
     super.initState();
 
-    _fetchTotalTasks();
+
     _firestoreService = TaskFirestoreService(widget.user.uid);
+    _fetchTotalTasks();
   }
 
   void _fetchTotalTasks() async {
