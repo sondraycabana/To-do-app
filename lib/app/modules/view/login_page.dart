@@ -1,3 +1,5 @@
+import 'package:accessment/app/modules/view/home_page.dart';
+import 'package:accessment/app/modules/view/register_page.dart';
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +17,12 @@ class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageScreenState createState() => _LoginPageScreenState();
+  LoginPageScreenState createState() => LoginPageScreenState();
 }
 
-class _LoginPageScreenState extends State<LoginPage> {
+class LoginPageScreenState extends State<LoginPage> {
   bool isLoading = false;
-  late bool _isObscured = true;
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -36,7 +38,12 @@ class _LoginPageScreenState extends State<LoginPage> {
       );
 
       if (user != null) {
-        Navigator.pushNamed(context, Routes.home, arguments: user);
+        // Navigator.pushNamed(context, Routes.home, arguments: user);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => HomePage(user: user),
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           FireAuth.customSnackBar(content: "Invalid credentials"),
@@ -62,7 +69,12 @@ class _LoginPageScreenState extends State<LoginPage> {
       User? user = await FireAuth.signInWithGoogle(context);
 
       if (user != null) {
-        Navigator.pushNamed(context, Routes.home, arguments: user);
+        // Navigator.pushNamed(context, Routes.home, arguments: user);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => HomePage(user: user),
+          ),
+        );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -74,9 +86,6 @@ class _LoginPageScreenState extends State<LoginPage> {
       });
     }
   }
-
-
-
 
   void _loginWithFacebook() async {
     setState(() {
@@ -103,7 +112,6 @@ class _LoginPageScreenState extends State<LoginPage> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +171,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                   if (value!.isEmpty) {
                     return 'Email cannot be empty';
                   }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,5}$')
+                  if (!RegExp(r'^[\w-.]+@([\w-]+\.)+\w{2,5}$')
                       .hasMatch(value)) {
                     return 'Invalid email';
                   }
@@ -239,9 +247,17 @@ class _LoginPageScreenState extends State<LoginPage> {
               ),
               16.h,
               RegisterLoginLinkWidget(
-                route: () => Navigator.pushNamed(context, Routes.register),
+
+                // route: () => Navigator.pushNamed(context, Routes.register),
+
                 text: 'Register here',
-                preText: "Don't have an account?",
+                preText: "Don't have an account?", route: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const RegisterPage(),
+                  ),
+                );
+              },
               ),
             ],
           ),
@@ -250,4 +266,3 @@ class _LoginPageScreenState extends State<LoginPage> {
     );
   }
 }
-

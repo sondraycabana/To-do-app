@@ -1,43 +1,32 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:accessment/app/modules/provider/task_provider.dart';
 import 'package:accessment/app/constants/app_colors.dart';
 import 'package:accessment/app/modules/view/settings_screen.dart';
+import '../services/task_firestore_service.dart';
 import '../view/title_page.dart';
 import 'home_screen.dart';
 
 class HomePage extends StatefulWidget {
-  final user;
-
-  const HomePage({Key? key, required this.user}) : super(key: key);
+  final dynamic user;
+  const HomePage({super.key, required this.user});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late TaskFirestoreServiceProvider _firestoreService; // Declare TaskFirestoreService instance
+class HomePageState extends State<HomePage> {
+  late TaskFirestoreService _firestoreService;
 
   @override
   void initState() {
     super.initState();
-    // Access TaskFirestoreService instance from provider
-    _firestoreService = Provider.of<TaskFirestoreServiceProvider>(context, listen: false);
 
-    if (widget.user != null) {
-      _firestoreService = TaskFirestoreServiceProvider(uid: widget.user.uid);
-    } else {
-      if (kDebugMode) {
-        print("User is not available");
-      }
-    }
+    _firestoreService = TaskFirestoreService(widget.user.uid);
   }
 
   int _currentIndex = 0;
   final List<Widget> _children = [
-    HomeScreen(),
-    SettingsScreen(),
+    const HomeScreen(),
+    const SettingsScreen(),
   ];
 
   @override
@@ -63,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings,
-              size: 32.0, // Set icon size to 32
+              size: 32.0,
             ),
             label: 'Settings',
           ),
@@ -91,15 +80,16 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
+
           backgroundColor: AppColors.primaryColor,
           hoverColor: Colors.white,
           elevation: 5, // Adjust the elevation as needed
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
           ),
         ),
       ),

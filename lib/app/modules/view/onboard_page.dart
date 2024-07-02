@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 
 import '../../constants/asset_paths.dart';
 
-
 class OnboardingPage extends StatelessWidget {
+  const OnboardingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,6 @@ class OnboardingPage extends StatelessWidget {
               children: [
                 128.h,
                 Image.asset(
-
                   AssetPath.onboardingImage,
                   height: 280,
                   width: 280,
@@ -48,7 +48,7 @@ class OnboardingPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (BuildContext context) => LoginPage(),
+                        builder: (BuildContext context) => const LoginPage(),
                       ),
                     );
                   },

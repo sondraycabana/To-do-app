@@ -1,5 +1,6 @@
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
@@ -11,10 +12,10 @@ class TaskDetail extends StatefulWidget {
   const TaskDetail({super.key, required this.task});
 
   @override
-  _TaskDetailState createState() => _TaskDetailState();
+  TaskDetailState createState() => TaskDetailState();
 }
 
-class _TaskDetailState extends State<TaskDetail> {
+class TaskDetailState extends State<TaskDetail> {
   final TextEditingController _itemController = TextEditingController();
   late List<String> _items;
   late List<bool> _checkedItems;
@@ -44,7 +45,9 @@ class _TaskDetailState extends State<TaskDetail> {
           .doc(widget.task.id)
           .update({'items': _items});
     } catch (e) {
-      print('Error updating items: $e');
+      if (kDebugMode) {
+        print('Error updating items: $e');
+      }
     }
   }
 

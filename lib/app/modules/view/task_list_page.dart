@@ -5,9 +5,8 @@ import 'package:accessment/app/modules/view/title_page.dart';
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:accessment/app/utils/app_strings/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../provider/task_provider.dart';
 import '../model/task_model.dart';
+import '../services/task_firestore_service.dart';
 import 'task_detail_page.dart';
 
 class TaskListPage extends StatefulWidget {
@@ -21,19 +20,19 @@ class TaskListPage extends StatefulWidget {
 
 class _TaskListPageState extends State<TaskListPage> {
   int _totalTasks = 0;
-  late TaskFirestoreServiceProvider _firestoreService;
+  late TaskFirestoreService _firestoreService;
 
   @override
   void initState() {
     super.initState();
-    _firestoreService =
-        Provider.of<TaskFirestoreServiceProvider>(context, listen: false);
+
     _fetchTotalTasks();
+    _firestoreService = TaskFirestoreService(widget.user.uid);
   }
 
   void _fetchTotalTasks() async {
     try {
-      List<Tasks> tasks = await _firestoreService.streamTasks().first;
+      List<Tasks> tasks = await _firestoreService.getTasks().first;
       setState(() {
         _totalTasks = tasks.length;
       });
@@ -62,7 +61,7 @@ class _TaskListPageState extends State<TaskListPage> {
                         children: [
                           50.h,
                           const Text(
-                          AppStrings.taskListPageText1,
+                            AppStrings.taskListPageText1,
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 24,
@@ -108,25 +107,11 @@ class _TaskListPageState extends State<TaskListPage> {
           Expanded(
             child: TaskList(user: widget.user),
           ),
-
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class TaskList extends StatefulWidget {
   final dynamic user;
@@ -138,27 +123,27 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
-  late TaskFirestoreServiceProvider _firestoreService;
+  late TaskFirestoreService _firestoreService;
   int _currentIndex = 0; // Add this for bottom navigation
 
   @override
   void initState() {
     super.initState();
-    _firestoreService =
-        Provider.of<TaskFirestoreServiceProvider>(context, listen: false);
+
+    _firestoreService = TaskFirestoreService(widget.user.uid);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: StreamBuilder<List<Tasks>>(
-        stream: _firestoreService.streamTasks(),
+        stream: _firestoreService.getTasks(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error loading tasks: ${snapshot.error}'));
+            return Center(
+                child: Text('Error loading tasks: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No tasks found'));
           } else {
@@ -290,7 +275,7 @@ class _TaskListState extends State<TaskList> {
           ),
           backgroundColor: AppColors.primaryColor,
           hoverColor: Colors.white,
-          elevation: 5, // Adjust the elevation as needed
+          elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -303,7 +288,6 @@ class _TaskListState extends State<TaskList> {
           setState(() {
             _currentIndex = index;
           });
-
 
           if (index == 1) {
             Navigator.push(
@@ -318,16 +302,6 @@ class _TaskListState extends State<TaskList> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 class BottomNavBar extends StatefulWidget {
   final int currentIndex;
@@ -369,9 +343,3 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 }
-
-
-
-
-
-

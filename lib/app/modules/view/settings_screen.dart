@@ -2,19 +2,20 @@ import 'package:accessment/app/constants/asset_paths.dart';
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../utils/app_strings/app_strings.dart';
 import '../services/auth_service.dart';
 
 class SettingsScreen extends StatelessWidget {
-  final FireAuth _fireAuth = FireAuth();
+  // final FireAuth _fireAuth = FireAuth();
+
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
 
-    void _showLogoutDialog() {
+    void showLogoutDialog() {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -46,22 +47,22 @@ class SettingsScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop(); // Close the dialog
                       },
-                      child: Text('Cancel'),
                       style: OutlinedButton.styleFrom(
-                        primary: AppColors.primaryColor,
-                        side: BorderSide(color: AppColors.primaryColor),
+                        foregroundColor: AppColors.primaryColor,
+                        side: const BorderSide(color: AppColors.primaryColor),
                       ),
+                      child: const Text('Cancel'),
                     ),
                     ElevatedButton(
                       onPressed: () {
                         FireAuth.signOut(context); // Sign out the user
                         Navigator.of(context).pop(); // Close the dialog
                       },
-                      child: Text('Yes'),
                       style: ElevatedButton.styleFrom(
-                        primary: AppColors.primaryColor,
-                        onPrimary: Colors.white,
+                        foregroundColor: Colors.white,
+                        backgroundColor: AppColors.primaryColor,
                       ),
+                      child: const Text('Yes'),
                     ),
                   ],
                 ),
@@ -74,7 +75,7 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Stack(
           children: [
             AppBar(
@@ -123,7 +124,7 @@ class SettingsScreen extends StatelessWidget {
               right: 0,
               child: Container(
                 height: 1.0,
-                color: Color(0xffC8C5CB),
+                color: const Color(0xffC8C5CB),
               ),
             ),
           ],
@@ -144,7 +145,7 @@ class SettingsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
-                 AssetPath.emailIcon,
+                  AssetPath.emailIcon,
                   height: 40,
                   width: 40,
                   color: AppColors.neutralDarkGreyColor,
@@ -171,7 +172,7 @@ class SettingsScreen extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: _showLogoutDialog,
+                    onTap: showLogoutDialog,
                     child: Row(
                       children: [
                         Image.asset(
@@ -181,7 +182,7 @@ class SettingsScreen extends StatelessWidget {
                         ),
                         12.w,
                         const Text(
-                         AppStrings.logOutText,
+                          AppStrings.logOutText,
                           style: TextStyle(
                             fontSize: 18,
                             color: Color(0xFFCE3A54),

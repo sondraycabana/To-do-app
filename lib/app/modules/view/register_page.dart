@@ -12,18 +12,19 @@ import '../../config/routes/routes.dart';
 import '../../utils/app_strings/app_strings.dart';
 import '../provider/auth_provider.dart';
 import '../services/auth_service.dart';
+import 'home_page.dart';
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  late bool _isObscured = true;
+  late final bool _isObscured = true;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -57,7 +58,13 @@ class _RegisterPageState extends State<RegisterPage> {
           password: passwordController.text,
           context: context,
         );
-        Navigator.pushNamed(context, Routes.home, arguments: authProvider.user);
+        // Navigator.pushNamed(context, Routes.home, arguments: authProvider.user);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) =>
+                HomePage(user: authProvider.user),
+          ),
+        );
       } catch (e) {
         // Handle registration errors
         ScaffoldMessenger.of(context).showSnackBar(
@@ -190,8 +197,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   if (value!.isEmpty) {
                                     return 'Email cannot be empty';
                                   }
-                                  if (!RegExp(
-                                          r'^[\w-\.]+@([\w-]+\.)+[\w]{2,5}$')
+                                  if (!RegExp(r'^[\w-.]+@([\w-]+\.)+\w{2,5}$')
                                       .hasMatch(value)) {
                                     return 'Invalid email';
                                   }
@@ -270,7 +276,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           isLoading: authProvider.isLoading,
                         ),
                         16.h,
-                        OrDivider(),
+                        const OrDivider(),
                         16.h,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -280,9 +286,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               onPressed: authProvider.isLoading
                                   ? null
                                   : () async {
-                                      final user = await authProvider
-                                          .signInWithGoogle(context);
-
                                       if (authProvider.user != null) {
                                         Navigator.pushNamed(
                                             context, Routes.home,

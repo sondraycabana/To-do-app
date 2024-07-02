@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -42,7 +44,7 @@ class HomeScreen extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 62.0),
                 child: const Text(
-                 AppStrings.homeScreenText2,
+                  AppStrings.homeScreenText2,
                   style: TextStyle(
                     fontSize: 14,
                     fontFamily: "Inter",

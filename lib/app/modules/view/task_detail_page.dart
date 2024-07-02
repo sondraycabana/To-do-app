@@ -46,7 +46,7 @@ class TaskDetailPage extends StatelessWidget {
               right: 0,
               child: Container(
                 height: 1.0,
-                color: Color(0xffC8C5CB),
+                color: const Color(0xffC8C5CB),
               ),
             ),
           ],

@@ -1,11 +1,9 @@
 import 'package:accessment/app/modules/view/task_list_page.dart';
 import 'package:accessment/app/utils/app_strings/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:accessment/app/modules/provider/task_provider.dart'; // Import TaskFirestoreServiceProvider
 import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
-import '../../config/routes/routes.dart';
 import '../../constants/app_colors.dart';
+import '../services/task_firestore_service.dart';
 
 class TitlePage extends StatefulWidget {
   final dynamic user;
@@ -13,11 +11,11 @@ class TitlePage extends StatefulWidget {
   const TitlePage({Key? key, required this.user}) : super(key: key);
 
   @override
-  _TitlePageState createState() => _TitlePageState();
+  TitlePageState createState() => TitlePageState();
 }
 
-class _TitlePageState extends State<TitlePage> {
-  late TaskFirestoreServiceProvider _firestoreService;
+class TitlePageState extends State<TitlePage> {
+  late TaskFirestoreService _firestoreService;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _itemController = TextEditingController();
   final List<String> _items = [];
@@ -26,8 +24,7 @@ class _TitlePageState extends State<TitlePage> {
   @override
   void initState() {
     super.initState();
-    _firestoreService =
-        Provider.of<TaskFirestoreServiceProvider>(context, listen: false);
+    _firestoreService = TaskFirestoreService(widget.user.uid);
   }
 
   void _showErrorSnackBar(String message) {
@@ -43,13 +40,12 @@ class _TitlePageState extends State<TitlePage> {
       });
       try {
         await _firestoreService.addTask(_titleController.text, _items);
-        // Navigator.pushNamed(context, Routes.taskListPage,
-        //     arguments: widget.user);
-
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TaskListPage( user:  widget.user,)),
-
+          MaterialPageRoute(
+              builder: (context) => TaskListPage(
+                    user: widget.user,
+                  ),),
         );
       } catch (e) {
         _showErrorSnackBar('Error adding task: $e');
@@ -114,7 +110,7 @@ class _TitlePageState extends State<TitlePage> {
                     decoration: InputDecoration(
                       hintText: "Add main task",
                       prefixIcon: IconButton(
-                        icon: Icon(Icons.add),
+                        icon: const Icon(Icons.add),
                         onPressed: _addTask,
                       ),
                     ),
@@ -141,7 +137,7 @@ class _TitlePageState extends State<TitlePage> {
                         return ListTile(
                           title: Text(_items[index]),
                           trailing: IconButton(
-                            icon: Icon(Icons.delete),
+                            icon: const Icon(Icons.delete),
                             onPressed: () {
                               setState(() {
                                 _items.removeAt(index);
