@@ -307,8 +307,15 @@ class RegisterPageState extends State<RegisterPage> {
                         ),
                         16.h,
                         RegisterLoginLinkWidget(
-                          route: () =>
-                              Navigator.pushNamed(context, Routes.login),
+                          // route: () =>
+                          //     Navigator.pushNamed(context, Routes.login),
+                          route: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => const LoginPage(),
+                              ),
+                            );
+                          },
                           text: "Login here",
                           preText: "Already have an account?",
                         ),
