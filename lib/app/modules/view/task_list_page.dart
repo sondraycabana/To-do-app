@@ -1,10 +1,12 @@
-import 'package:accessment/app/constants/app_colors.dart';
-import 'package:accessment/app/constants/asset_paths.dart';
-import 'package:accessment/app/modules/view/settings_screen.dart';
-import 'package:accessment/app/modules/view/title_page.dart';
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
-import 'package:accessment/app/utils/app_strings/app_strings.dart';
+import 'package:assessment/app/modules/view/settings_screen.dart';
+import 'package:assessment/app/modules/view/title_page.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/app_colors.dart';
+import '../../constants/asset_paths.dart';
+import '../../utils/app_strings/app_strings.dart';
 import '../model/task_model.dart';
 import '../services/task_firestore_service.dart';
 import 'task_detail_page.dart';
@@ -15,30 +17,32 @@ class TaskListPage extends StatefulWidget {
   const TaskListPage({Key? key, required this.user}) : super(key: key);
 
   @override
-  _TaskListPageState createState() => _TaskListPageState();
+  TaskListPageState createState() => TaskListPageState();
 }
 
-class _TaskListPageState extends State<TaskListPage> {
+class TaskListPageState extends State<TaskListPage> {
   int _totalTasks = 0;
-  late TaskFirestoreService _firestoreService;
+  late TaskFireStoreService fireStoreService;
 
   @override
   void initState() {
     super.initState();
 
 
-    _firestoreService = TaskFirestoreService(widget.user.uid);
+    fireStoreService = TaskFireStoreService(widget.user.uid);
     _fetchTotalTasks();
   }
 
   void _fetchTotalTasks() async {
     try {
-      List<Tasks> tasks = await _firestoreService.getTasks().first;
+      List<Tasks> tasks = await fireStoreService.getTasks().first;
       setState(() {
         _totalTasks = tasks.length;
       });
     } catch (e) {
-      print('Error fetching total tasks: $e');
+      if (kDebugMode) {
+        print('Error fetching total tasks: $e');
+      }
       // Handle error
     }
   }
@@ -120,25 +124,25 @@ class TaskList extends StatefulWidget {
   const TaskList({Key? key, required this.user}) : super(key: key);
 
   @override
-  _TaskListState createState() => _TaskListState();
+  TaskListState createState() => TaskListState();
 }
 
-class _TaskListState extends State<TaskList> {
-  late TaskFirestoreService _firestoreService;
+class TaskListState extends State<TaskList> {
+  late TaskFireStoreService fireStoreService;
   int _currentIndex = 0; // Add this for bottom navigation
 
   @override
   void initState() {
     super.initState();
 
-    _firestoreService = TaskFirestoreService(widget.user.uid);
+    fireStoreService = TaskFireStoreService(widget.user.uid);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<List<Tasks>>(
-        stream: _firestoreService.getTasks(),
+        stream: fireStoreService.getTasks(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -181,7 +185,8 @@ class _TaskListState extends State<TaskList> {
                                     height: 30,
                                     width: 30,
                                   ),
-                                  SizedBox(width: 8),
+
+                                  8.w,
                                   Expanded(
                                     child: Text(
                                       task.taskTitle,
@@ -195,8 +200,30 @@ class _TaskListState extends State<TaskList> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 8),
-                              Container(
+
+                              8.h,
+                              // Container(
+                              //   height: 66,
+                              //   child: ListView.builder(
+                              //     shrinkWrap: true,
+                              //     itemCount: task.items.length,
+                              //     itemBuilder: (context, index) {
+                              //       return Row(
+                              //         children: [
+                              //           Checkbox(
+                              //             value: false,
+                              //             onChanged: (value) {
+                              //               setState(() {});
+                              //             },
+                              //           ),
+                              //           Text(task.items[index])
+                              //         ],
+                              //       );
+                              //     },
+                              //   ),
+                              // ),
+
+                              SizedBox(
                                 height: 66,
                                 child: ListView.builder(
                                   shrinkWrap: true,
@@ -219,7 +246,8 @@ class _TaskListState extends State<TaskList> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 40),
+
+                        40.h,
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(8),
@@ -233,7 +261,7 @@ class _TaskListState extends State<TaskList> {
                             child: const Text(
                               "Task",
                               style: TextStyle(
-                                color: AppColors.primaryColor,
+                                color: Colors.white,
                                 fontFamily: "Inter",
                               ),
                             ),
@@ -270,15 +298,15 @@ class _TaskListState extends State<TaskList> {
               ),
             );
           },
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
           backgroundColor: AppColors.primaryColor,
           hoverColor: Colors.white,
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
           ),
         ),
       ),
@@ -294,7 +322,7 @@ class _TaskListState extends State<TaskList> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SettingsScreen(),
+                builder: (context) => const SettingsScreen(),
               ),
             );
           }
@@ -315,10 +343,10 @@ class BottomNavBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  BottomNavBarState createState() => BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(

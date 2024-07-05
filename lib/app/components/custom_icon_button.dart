@@ -29,7 +29,7 @@ class CustomIconButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15),
+            margin: const EdgeInsets.symmetric(horizontal: 15),
 
             // width: 54,
             height: 54,
@@ -44,9 +44,7 @@ class CustomIconButton extends StatelessWidget {
              ElevatedButton(
                onPressed: onPressed,
                style: ElevatedButton.styleFrom(
-                 splashFactory: NoSplash.splashFactory,
-                 onPrimary: splashColor,
-                 primary: buttonColor,
+                 foregroundColor: splashColor, backgroundColor: buttonColor, splashFactory: NoSplash.splashFactory,
                  shadowColor: Colors.transparent,
                  elevation: 0,
                  shape: RoundedRectangleBorder(

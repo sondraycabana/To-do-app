@@ -1,14 +1,13 @@
-import 'package:accessment/app/components/custom_button.dart';
-import 'package:accessment/app/constants/app_colors.dart';
-import 'package:accessment/app/modules/view/login_page.dart';
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
-import 'package:accessment/app/utils/app_strings/app_strings.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:flutter/material.dart';
-
+import '../../components/custom_button.dart';
+import '../../constants/app_colors.dart';
 import '../../constants/asset_paths.dart';
+import '../../utils/app_strings/app_strings.dart';
+import 'login_page.dart';
 
-class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({super.key});
+class OnBoardingPage extends StatelessWidget {
+  const OnBoardingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

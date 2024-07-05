@@ -1,8 +1,8 @@
-import 'package:accessment/app/modules/view/task_list_page.dart';
-import 'package:accessment/app/utils/app_strings/app_strings.dart';
+import 'package:assessment/app/modules/view/task_list_page.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
 import '../../constants/app_colors.dart';
+import '../../utils/app_strings/app_strings.dart';
 import '../services/task_firestore_service.dart';
 
 class TitlePage extends StatefulWidget {
@@ -15,7 +15,7 @@ class TitlePage extends StatefulWidget {
 }
 
 class TitlePageState extends State<TitlePage> {
-  late TaskFirestoreService _firestoreService;
+  late TaskFireStoreService fireStoreService;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _itemController = TextEditingController();
   final List<String> _items = [];
@@ -24,7 +24,7 @@ class TitlePageState extends State<TitlePage> {
   @override
   void initState() {
     super.initState();
-    _firestoreService = TaskFirestoreService(widget.user.uid);
+    fireStoreService = TaskFireStoreService(widget.user.uid);
   }
 
   void _showErrorSnackBar(String message) {
@@ -39,14 +39,16 @@ class TitlePageState extends State<TitlePage> {
         _isLoading = true;
       });
       try {
-        await _firestoreService.addTask(_titleController.text, _items);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
+        await fireStoreService.addTask(_titleController.text, _items);
+        if(context.mounted){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
               builder: (context) => TaskListPage(
-                    user: widget.user,
-                  ),),
-        );
+                user: widget.user,
+              ),),
+          );
+        }
       } catch (e) {
         _showErrorSnackBar('Error adding task: $e');
       } finally {

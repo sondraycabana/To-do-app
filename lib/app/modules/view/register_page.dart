@@ -1,18 +1,17 @@
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:accessment/app/constants/app_colors.dart';
-import 'package:accessment/app/components/custom_button.dart';
-import 'package:accessment/app/components/custom_text_field.dart';
-import 'package:accessment/app/components/custom_icon_button.dart';
-import 'package:accessment/app/utils/common_widgets/or_divider_widget.dart';
-import 'package:accessment/app/utils/common_widgets/register_login_link_widget.dart';
-import 'package:accessment/app/constants/asset_paths.dart';
+import '../../components/custom_button.dart';
+import '../../components/custom_icon_button.dart';
+import '../../components/custom_text_field.dart';
 import '../../config/routes/routes.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/asset_paths.dart';
 import '../../utils/app_strings/app_strings.dart';
+import '../../utils/common_widgets/or_divider_widget.dart';
+import '../../utils/common_widgets/register_login_link_widget.dart';
 import '../provider/auth_provider.dart';
 import '../services/auth_service.dart';
-import 'home_page.dart';
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -58,18 +57,22 @@ class RegisterPageState extends State<RegisterPage> {
           password: passwordController.text,
           context: context,
         );
-        // Navigator.pushNamed(context, Routes.home, arguments: authProvider.user);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) =>
-                HomePage(user: authProvider.user),
-          ),
-        );
+        if(context.mounted){
+          Navigator.pushNamed(context, Routes.home, arguments: authProvider.user);
+        }
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (BuildContext context) =>
+        //         HomePage(user: authProvider.user),
+        //   ),
+        // );
       } catch (e) {
-        // Handle registration errors
-        ScaffoldMessenger.of(context).showSnackBar(
-          FireAuth.customSnackBar(content: e.toString()),
-        );
+
+       if(context.mounted){
+         ScaffoldMessenger.of(context).showSnackBar(
+           FireAuth.customSnackBar(content: e.toString()),
+         );
+       }
       }
     }
   }

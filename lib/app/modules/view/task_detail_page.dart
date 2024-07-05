@@ -1,4 +1,4 @@
-import 'package:accessment/app/modules/view/task_details.dart';
+import 'package:assessment/app/modules/view/task_details.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../model/task_model.dart';

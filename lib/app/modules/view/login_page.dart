@@ -1,6 +1,5 @@
-import 'package:accessment/app/modules/view/home_page.dart';
-import 'package:accessment/app/modules/view/register_page.dart';
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:assessment/app/modules/view/register_page.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../components/custom_button.dart';
@@ -12,6 +11,7 @@ import '../../constants/asset_paths.dart';
 import '../../utils/app_strings/app_strings.dart';
 import '../../utils/common_widgets/register_login_link_widget.dart';
 import '../services/auth_service.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -37,22 +37,29 @@ class LoginPageScreenState extends State<LoginPage> {
         password: passwordController.text,
       );
 
-      if (user != null) {
-        // Navigator.pushNamed(context, Routes.home, arguments: user);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => HomePage(user: user),
-          ),
-        );
+      if (context.mounted) {
+        if(   user != null ) {
+          // Navigator.pushNamed(context, Routes.home, arguments: user);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) => HomePage(user: user),
+            ),
+          );
+        }
+
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          FireAuth.customSnackBar(content: "Invalid credentials"),
-        );
+        if(context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            FireAuth.customSnackBar(content: "Invalid credentials"),
+          );
+        }
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        FireAuth.customSnackBar(content: e.toString()),
-      );
+      if(context.mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          FireAuth.customSnackBar(content: e.toString()),
+        );
+      }
     } finally {
       setState(() {
         isLoading = false;
@@ -68,18 +75,23 @@ class LoginPageScreenState extends State<LoginPage> {
     try {
       User? user = await FireAuth.signInWithGoogle(context);
 
-      if (user != null) {
-        // Navigator.pushNamed(context, Routes.home, arguments: user);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => HomePage(user: user),
-          ),
-        );
+      if (context.mounted) {
+        if(user != null){
+          // Navigator.pushNamed(context, Routes.home, arguments: user);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) => HomePage(user: user),
+            ),
+          );
+        }
+
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        FireAuth.customSnackBar(content: e.toString()),
-      );
+      if(context.mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          FireAuth.customSnackBar(content: e.toString()),
+        );
+      }
     } finally {
       setState(() {
         isLoading = false;
@@ -95,17 +107,23 @@ class LoginPageScreenState extends State<LoginPage> {
     try {
       User? user = await FireAuth.signInWithFacebook();
 
-      if (user != null) {
-        Navigator.pushNamed(context, Routes.home, arguments: user);
+      if (context.mounted) {
+        if(user != null) {
+          Navigator.pushNamed(context, Routes.home, arguments: user);
+        }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          FireAuth.customSnackBar(content: "Failed to sign in with Facebook"),
-        );
+       if(context.mounted){
+         ScaffoldMessenger.of(context).showSnackBar(
+           FireAuth.customSnackBar(content: "Failed to sign in with Facebook"),
+         );
+       }
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        FireAuth.customSnackBar(content: e.toString()),
-      );
+     if(context.mounted){
+       ScaffoldMessenger.of(context).showSnackBar(
+         FireAuth.customSnackBar(content: e.toString()),
+       );
+     }
     } finally {
       setState(() {
         isLoading = false;
@@ -247,11 +265,9 @@ class LoginPageScreenState extends State<LoginPage> {
               ),
               16.h,
               RegisterLoginLinkWidget(
-
-                // route: () => Navigator.pushNamed(context, Routes.register),
-
                 text: 'Register here',
-                preText: "Don't have an account?", route: () {
+                preText: "Don't have an account?",
+                route: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) => const RegisterPage(),

@@ -1,18 +1,18 @@
-import 'package:accessment/app/modules/model/task_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
+import '../model/task_model.dart';
 
-class TaskFirestoreService {
+class TaskFireStoreService {
   final String uid;
   final Logger _logger = Logger();
 
-  TaskFirestoreService(this.uid);
+  TaskFireStoreService(this.uid);
 
   static const String _tasksCollectionName = 'tasks';
   final CollectionReference _taskCollection =
   FirebaseFirestore.instance.collection(_tasksCollectionName);
 
-  /// Adds a new task to the Firestore collection.
+  /// Adds a new task to the FireStore collection.
   Future<void> addTask(String taskTitle, List<String> items) async {
     try {
       await _taskCollection.add({
@@ -26,7 +26,7 @@ class TaskFirestoreService {
     }
   }
 
-  /// Edits an existing task in the Firestore collection.
+  /// Edits an existing task in the FireStore collection.
   Future<void> editTask(String docId, Map<String, dynamic> updatedData) async {
     try {
       await _taskCollection.doc(docId).update(updatedData);
@@ -36,7 +36,7 @@ class TaskFirestoreService {
     }
   }
 
-  /// Deletes a task from the Firestore collection.
+  /// Deletes a task from the FireStore collection.
   Future<void> deleteTask(String docId) async {
     try {
       await _taskCollection.doc(docId).delete();
@@ -46,7 +46,7 @@ class TaskFirestoreService {
     }
   }
 
-  /// Streams the tasks for the current user from the Firestore collection.
+  /// Streams the tasks for the current user from the fireStore collection.
   Stream<List<Tasks>> getTasks() {
     return _taskCollection
         .where('userId', isEqualTo: uid)

@@ -1,4 +1,4 @@
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 
@@ -28,7 +28,7 @@ class RegisterLoginLinkWidget extends StatelessWidget {
             onTap: route,
             child: Text(
               text ?? "Register here", // Use provided text or default
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: AppColors.primaryColor,

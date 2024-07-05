@@ -1,8 +1,8 @@
-import 'package:accessment/app/constants/asset_paths.dart';
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
+import '../../constants/asset_paths.dart';
 import '../../utils/app_strings/app_strings.dart';
 import '../services/auth_service.dart';
 
@@ -102,7 +102,7 @@ class SettingsScreen extends StatelessWidget {
                   InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => SettingsScreen(),
+                        builder: (context) => const SettingsScreen(),
                       ),
                     ),
                     child: const Text(

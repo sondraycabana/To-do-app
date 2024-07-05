@@ -141,27 +141,6 @@
 //
 //     }}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -181,7 +160,8 @@ class FireAuth {
   }) async {
     User? user;
     try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -219,19 +199,22 @@ class FireAuth {
     await _auth.signOut();
     await _googleSignIn.signOut();
 
-    Navigator.of(context).pushAndRemoveUntil(
+    if (context.mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => const LoginPage()),
           (route) => false,
     );
+    }
   }
 
   static Future<User?> signInWithGoogle(BuildContext context) async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+            await googleSignInAccount.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
@@ -239,7 +222,7 @@ class FireAuth {
         );
 
         final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
+            await _auth.signInWithCredential(credential);
         return userCredential.user;
       } else {
         throw Exception("Google sign in canceled or failed");
@@ -259,9 +242,9 @@ class FireAuth {
       if (loginResult.status == LoginStatus.success) {
         final AccessToken accessToken = loginResult.accessToken!;
         final OAuthCredential credential =
-        FacebookAuthProvider.credential(accessToken.tokenString);
+            FacebookAuthProvider.credential(accessToken.tokenString);
         final UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
+            await FirebaseAuth.instance.signInWithCredential(credential);
         return userCredential.user;
       } else {
         throw Exception("Facebook login failed");
@@ -305,4 +288,3 @@ class FireAuth {
     );
   }
 }
-

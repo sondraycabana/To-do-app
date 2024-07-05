@@ -2,11 +2,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:accessment/app/modules/view/login_page.dart';
-import 'package:accessment/app/modules/view/onboard_page.dart';
-import 'package:accessment/app/modules/view/register_page.dart';
-import 'package:accessment/app/modules/view/home_page.dart';
-
+import '../../modules/view/home_page.dart';
+import '../../modules/view/login_page.dart';
+import '../../modules/view/onboard_page.dart';
+import '../../modules/view/register_page.dart';
 import '../../modules/view/settings_screen.dart';
 import '../../modules/view/task_list_page.dart';
 import '../../modules/view/title_page.dart';
@@ -28,7 +27,7 @@ class Routes {
       case login:
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case onboard:
-        return MaterialPageRoute(builder: (_) =>  OnboardingPage());
+        return MaterialPageRoute(builder: (_) =>  const OnBoardingPage());
       case register:
         return MaterialPageRoute(builder: (_) => const RegisterPage());
       case home:
@@ -39,7 +38,7 @@ class Routes {
       case titlePage:
         return MaterialPageRoute(builder: (_) => const TitlePage(user:  User));
       case setting:
-        return MaterialPageRoute(builder: (_) => SettingsScreen());
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
       default:
         return null;
     }

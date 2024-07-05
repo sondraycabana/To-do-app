@@ -4,7 +4,7 @@
 
 
     <application
-        android:label="accessment"
+        android:label="assessment"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

@@ -1,7 +1,3 @@
-// Contains the paths to all the assets in our pubspec.yaml
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 abstract class AssetPath {
   // splash
   static const smartPayLogo = '';

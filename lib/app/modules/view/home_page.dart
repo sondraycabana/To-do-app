@@ -1,6 +1,6 @@
+import 'package:assessment/app/modules/view/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:accessment/app/constants/app_colors.dart';
-import 'package:accessment/app/modules/view/settings_screen.dart';
+import '../../constants/app_colors.dart';
 import '../services/task_firestore_service.dart';
 import '../view/title_page.dart';
 import 'home_screen.dart';
@@ -14,13 +14,13 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  late TaskFirestoreService _firestoreService;
+  late TaskFireStoreService fireStoreService;
 
   @override
   void initState() {
     super.initState();
 
-    _firestoreService = TaskFirestoreService(widget.user.uid);
+    fireStoreService = TaskFireStoreService(widget.user.uid);
   }
 
   int _currentIndex = 0;

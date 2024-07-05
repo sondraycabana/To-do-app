@@ -238,7 +238,9 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       String errorMessage = _parseErrorMessage(e);
-      _showError(context, errorMessage);
+     if(context.mounted){
+       _showError(context, errorMessage);
+     }
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -261,7 +263,9 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       String errorMessage = _parseErrorMessage(e);
-      _showError(context, errorMessage);
+     if(context.mounted){
+       _showError(context, errorMessage);
+     }
     }
   }
 
@@ -271,7 +275,9 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       String errorMessage = _parseErrorMessage(e);
-      _showError(context, errorMessage);
+    if(context.mounted){
+        _showError(context, errorMessage);
+    }
     }
   }
 
@@ -281,7 +287,9 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       String errorMessage = _parseErrorMessage(e);
-      _showError(context, errorMessage);
+      if(context.mounted){
+        _showError(context, errorMessage);
+      }
     }
   }
 

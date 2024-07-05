@@ -5,13 +5,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'app/firebase_options.dart';
 import 'app/modules/provider/auth_provider.dart';
-import 'app/modules/view/login_page.dart';
 import 'app/modules/view/onboard_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: "accessment",
+    name: "assessment",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -38,9 +37,9 @@ class MyApp extends StatelessWidget {
       home: Consumer<AuthProvider>(
         builder: (context, authProvider, child) {
           if (authProvider.user == null) {
-            return const OnboardingPage();
+            return const OnBoardingPage();
           } else {
-            return const OnboardingPage();
+            return const OnBoardingPage();
           }
 
           

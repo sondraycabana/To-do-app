@@ -1,5 +1,6 @@
-import 'package:accessment/app/utils/Extensions/size_box_extension.dart';
+import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -32,13 +33,13 @@ class TaskDetailState extends State<TaskDetail> {
       setState(() {
         _items.add(_itemController.text);
         _checkedItems.add(false);
-        _updateItemsInFirestore();
+        updateItemsInFireStore();
         _itemController.clear();
       });
     }
   }
 
-  Future<void> _updateItemsInFirestore() async {
+  Future<void> updateItemsInFireStore() async {
     try {
       await FirebaseFirestore.instance
           .collection('tasks')
@@ -55,7 +56,7 @@ class TaskDetailState extends State<TaskDetail> {
     setState(() {
       _items.removeAt(index);
       _checkedItems.removeAt(index);
-      _updateItemsInFirestore();
+      updateItemsInFireStore();
     });
   }
 
