@@ -3,7 +3,6 @@ import 'package:assessment/app/modules/view/title_page.dart';
 import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/asset_paths.dart';
 import '../../utils/app_strings/app_strings.dart';
@@ -13,9 +12,7 @@ import 'task_detail_page.dart';
 
 class TaskListPage extends StatefulWidget {
   final dynamic user;
-
   const TaskListPage({Key? key, required this.user}) : super(key: key);
-
   @override
   TaskListPageState createState() => TaskListPageState();
 }
@@ -27,7 +24,6 @@ class TaskListPageState extends State<TaskListPage> {
   @override
   void initState() {
     super.initState();
-
 
     fireStoreService = TaskFireStoreService(widget.user.uid);
     _fetchTotalTasks();
@@ -185,7 +181,6 @@ class TaskListState extends State<TaskList> {
                                     height: 30,
                                     width: 30,
                                   ),
-
                                   8.w,
                                   Expanded(
                                     child: Text(
@@ -246,7 +241,6 @@ class TaskListState extends State<TaskList> {
                             ],
                           ),
                         ),
-
                         40.h,
                         ClipRRect(
                           borderRadius: const BorderRadius.only(

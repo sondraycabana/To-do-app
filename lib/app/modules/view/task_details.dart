@@ -1,9 +1,7 @@
 import 'package:assessment/app/utils/Extensions/size_box_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../model/task_model.dart';
 
